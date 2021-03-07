@@ -1,0 +1,30 @@
+Please edit this file to include your responses to the reflection questions
+below.
+
+==== QUESTION 1 ===============================================================
+
+Possibly uart_init() was not called in the main function of the program. 
+Also ASCII characters could be printed out if the character buffer stream 
+is not setup correctly via readline function. If you disable TX line of code, you
+can get output that is random. If the BAUDRATE is not in the same time domain so
+uart doesn't know what to print out so it prints random stuff.
+
+==== QUESTION 2 ===============================================================
+
+We chose to use a volatile flag for the Interrupt Service Routine (ISR), which was 
+the LED blink timer sample code provided for us. If the condition is triggered the 
+LED state would alternate over a given delay time specified by the user, 250 ms for 
+this part of the lab. We also implement our uart_init function which allows us to
+input from the keyboard. We then use strcmp to compare the input from the user to
+two hard coded strings "on" and "end", respectively. If "on" was matched by the
+characters in the buffer, the volatile flag would trigger within the ISR and the 
+LED would begin blinking.
+
+==== QUESTION 3 ===============================================================
+
+The best approach is to prompt the user for the time period they want the LED to
+blink as an integer, unsigned or otherwise. Store that value, then pass that value
+into a function that performs the division by 2, and pass by reference the results
+into the _delay_ms() function in the interrupt. While the program runs it will 
+constantly use the x/2 delay time. The program would have to prompt the user twice
+once for the command to blink/stop and another for the time period.
